@@ -19,7 +19,7 @@ Corrections or suggestions? Please [open an issue](https://github.com/jphall663/
 
 ## Preliminary materials
 
-- [Whiteboard notation](asset/notation/Whiteboard_Notation.pdf)
+- [Whiteboard notation](https://docs.google.com/presentation/d/1Axf9dizaE3XvGRelBHfsnAlMUPFuMExQ2WNVwQBKMrw/edit?usp=sharing)
 - [Software configuration](#software-configuration)
 
 ## Lecture 1: LLM and transformer foundations
