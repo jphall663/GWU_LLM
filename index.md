@@ -29,7 +29,7 @@ Tokens, embeddings, attention, transformers, generation; reasoning models and in
 ### Lecture 1 class materials
 
 - [Lecture slides](lecture/lec_1/lecture_1.pdf)
-- [Software example notebook](lecture/lec_1/next_word_primer.ipynb)
+- [Software example notebook](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_1/next_word_primer.ipynb)
 
 ## Lecture 2: Prompting and prompt development
 
