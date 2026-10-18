@@ -79,6 +79,21 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# LaTeX build intermediates (compiled PDFs remain versioned lecture outputs)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+
 # IPython
 profile_default/
 ipython_config.py
@@ -151,8 +166,9 @@ activemq-data/
 
 # Environments
 .env
+.vscode/tensorflow-gpu.env
 .envrc
-.venv
+.venv/
 env/
 venv/
 ENV/

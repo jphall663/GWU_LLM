@@ -1,0 +1,5 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.envFile": "${workspaceFolder}/.vscode/tensorflow-gpu.env",
+  "python.terminal.useEnvFile": true
+}

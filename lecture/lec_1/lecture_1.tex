@@ -1,0 +1,187 @@
+% Copyright (c) Patrick Hall (jphall@gwu.edu), 2026-27. CC BY-NC-SA 4.0.
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Singapore}
+\definecolor{brand}{RGB}{45,110,191}
+\definecolor{hrgray}{RGB}{100,100,100}
+\setbeamercolor{structure}{fg=brand}
+\setbeamercolor{title}{fg=hrgray}
+\setbeamercolor{subtitle}{fg=brand}
+\setbeamercolor{frametitle}{fg=hrgray}
+\setbeamercolor{block title}{fg=white,bg=brand}
+\setbeamercolor{block body}{bg=black!2}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype,graphicx,booktabs,tikz,amsmath}
+\usetikzlibrary{positioning,arrows.meta}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=3ex,dp=1ex,left]{author in head/foot}\hspace{0.8ex}\includegraphics[height=.5cm]{gw_logo.png}\end{beamercolorbox}\begin{beamercolorbox}[wd=.5\paperwidth,ht=3ex,dp=1ex,right]{date in head/foot}\insertframenumber/\inserttotalframenumber\hspace{2ex}\end{beamercolorbox}}}
+\title{Lecture 1: LLM and transformer foundations}
+\author[Patrick Hall]{\textbf{Patrick Hall}}
+\institute{Department of Decision Sciences}
+\date{\today}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  \vspace{-.75em}
+  \centering\scriptsize \textcopyright\ 2026--27 Patrick Hall (jphall@gwu.edu). Some rights reserved. Text and copy are licensed under a \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)}.
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[opacity=.08] at (current page.center) {\includegraphics[width=.55\paperwidth]{gw_logo.png}};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+\section{Predicting the next word}
+
+\begin{frame}{Tokenization turns text into supervised data}
+\small
+\begin{columns}[T]
+\column{.53\textwidth}
+\textbf{Vocabulary} $\mathcal V=\{\texttt{<pad>},\texttt{see},\texttt{spot},\texttt{run},\texttt{fast},\texttt{<eot>}\}$, with IDs $0,\ldots,5$.
+\vspace{.5em}
+
+The sentence \texttt{see spot run fast <eot>} becomes $[1,2,3,4,5]$. \textbf{Context-window length: $L=4$ tokens.} Each prediction uses at most the four most recent token IDs; left-pad shorter prefixes with $0$:
+\vspace{.4em}
+\begin{center}\scriptsize
+\begin{tabular}{c|c|c}
+prefix & $\x^{(i)}\in\mathcal X\subset\{0,\ldots,5\}^{4}$ & $y^{(i)}\in\mathcal Y=\mathcal V$\\ \midrule
+\texttt{see} & $[0,0,0,1]$ & \texttt{spot} (2)\\
+\texttt{see spot} & $[0,0,1,2]$ & \texttt{run} (3)\\
+\texttt{see spot run} & $[0,1,2,3]$ & \texttt{fast} (4)\\
+\texttt{see spot run fast} & $[1,2,3,4]$ & \texttt{<eot>} (5)
+\end{tabular}
+\end{center}
+\column{.43\textwidth}
+\begin{block}{Supervised learning}
+The observed dataset is $\mathbf X,\mathbf Y=\{(\x^{(i)},y^{(i)})\}_{i=0}^{N-1}$. Training produces a model $g$ whose predictions $g(\mathbf X)=\hat{\mathbf Y}$ approximate $\mathbf Y$.
+\end{block}
+\end{columns}
+\end{frame}
+
+\begin{frame}{A one-hidden-layer MLP scores every possible next token}
+\small
+\begin{columns}[T]
+\column{.58\textwidth}
+\scriptsize
+Each ID indexes a learned row of an embedding table $\E\in\mathbb R^{6\times2}$.\\[.35em]
+For $\x=[x_1,\ldots,x_4]$:
+\[
+\E_{\x}=[\E_{x_1};\E_{x_2};\E_{x_3};\E_{x_4}]\in\mathbb R^{4\times2},
+\quad \mathbf z=\operatorname{vec}(\E_{\x})\in\mathbb R^8.
+\]
+\[
+\mathbf h=\tanh(\mathbf W_1\mathbf z+\mathbf b_1),
+\quad \mathbf s=\mathbf W_2\mathbf h+\mathbf b_2,
+\quad \hat{\mathbf p}=\operatorname{softmax}(\mathbf s).
+\]
+Here $\hat p_j=P_g(Y=j\mid\x)$; categorical cross-entropy (multiclass log loss) for one example is $-\log \hat p_{y^{(i)}}$.\\[.35em]
+Gradient descent updates $\E,\mathbf W_1,\mathbf b_1,\mathbf W_2,\mathbf b_2$.\\[.35em]
+\textbf{Loss example:} if $y^{(i)}=4$ and $\hat p_4=0.80$, then $-\log(0.80)\approx0.223$.\\[1em]
+\textbf{Layer flow:} $4$ token IDs $\rightarrow 4\times2=8$ embedding coordinates $\rightarrow 4$ \texttt{tanh} units $\rightarrow 6$ next-token probabilities.\\[.35em]
+Each layer's output matches the next layer's input: $(4,2)\rightarrow8\rightarrow4\rightarrow6$.
+\column{.38\textwidth}
+\centering
+\begin{tikzpicture}[>=Latex, node distance=5mm, every node/.style={font=\scriptsize}]
+\node[draw,rounded corners,align=center,minimum width=28mm] (x) {$\x$: 4 IDs};
+\node[draw,rounded corners,align=center,minimum width=28mm,text width=28mm,font=\tiny,below=of x] (e) {$\E_{\x}$: $4\times2$ lookup};
+\node[draw,rounded corners,align=center,minimum width=28mm,below=of e] (h) {$\mathbf h$: 4 units};
+\node[draw,rounded corners,align=center,minimum width=28mm,below=of h] (p) {$\hat{\mathbf p}$: 6 probabilities};
+\draw[->] (x)--(e); \draw[->] (e)--(h); \draw[->] (h)--(p);
+\end{tikzpicture}
+\vspace{1em}
+\begin{block}{Why not predict ID 4 directly?}
+IDs are labels, not ordered quantities. Six softmax probabilities define a categorical prediction.
+\end{block}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{The example MLP}
+\centering
+\small
+For $\x=[0,1,2,3]$ (\texttt{<pad>, see, spot, run}), the context-window length is $L=4$: each token contributes two learned coordinates. Every embedding coordinate connects to every hidden unit; every hidden unit scores every vocabulary item.
+\vspace{.4em}
+
+\begin{tikzpicture}[>=Latex, x=1cm, y=.62cm,
+  input/.style={circle,draw,fill=blue!10,minimum size=6.2mm,font=\scriptsize},
+  hidden/.style={circle,draw,fill=orange!18,minimum size=7.2mm,font=\scriptsize},
+  output/.style={circle,draw,fill=green!14,minimum size=6.5mm,font=\scriptsize},
+  every path/.style={draw=gray!65,line width=.28pt}]
+% Token positions and their two-dimensional embeddings.
+\foreach \pos/\token in {1/{<pad>},2/{see},3/{spot},4/{run}} {
+  \node[input] (t\pos) at (0,{5.4-1.45*\pos}) {$x_\pos$};
+  \node[font=\tiny,anchor=east] at (-.45,{5.4-1.45*\pos}) {\texttt{\token}};
+  \node[input] (e\pos a) at (2,{5.7-1.45*\pos}) {$e_{\pos1}$};
+  \node[input] (e\pos b) at (2,{5.1-1.45*\pos}) {$e_{\pos2}$};
+  \draw[->] (t\pos) -- (e\pos a); \draw[->] (t\pos) -- (e\pos b);
+}
+% Four hidden units.
+\foreach \n/\yy in {1/4.9,2/3.8,3/2.7,4/1.6} {
+  \node[hidden] (h\n) at (5,\yy) {$h_\n$};
+}
+% Six categorical softmax outputs.
+\foreach \n/\word/\yy in {0/{pad}/5.45,1/{see}/4.6,2/{spot}/3.75,3/{run}/2.9,4/{fast}/2.05,5/{eot}/1.2} {
+  \node[output] (o\n) at (8,\yy) {$\hat p_\n$};
+  \node[font=\tiny,anchor=west] at (8.42,\yy) {\texttt{<\word>}};
+}
+% Dense affine layers; the activations and softmax are named above their layers.
+\foreach \pos in {1,2,3,4} {\foreach \coord in {a,b} {\foreach \n in {1,2,3,4} {\draw (e\pos\coord) -- (h\n);}}}
+\foreach \n in {1,2,3,4} {\foreach \out in {0,1,2,3,4,5} {\draw (h\n) -- (o\out);}}
+\node[align=center,font=\scriptsize\bfseries] at (2,6.45) {embedding lookup\\$\E\in\mathbb R^{6\times2}$};
+\node[align=center,font=\scriptsize\bfseries] at (5,6.45) {$\tanh(\mathbf W_1\mathbf z+\mathbf b_1)$\\4 hidden units};
+\node[align=center,font=\scriptsize\bfseries] at (8,6.45) {$\operatorname{softmax}(\mathbf W_2\mathbf h+\mathbf b_2)$\\next-token probabilities};
+\end{tikzpicture}
+
+\vspace{-.3em}
+\scriptsize The output row with the largest probability is decoded; in this training example, $\arg\max_j\hat p_j=4$, or \texttt{fast}.
+\end{frame}
+
+\begin{frame}{Detokenization makes the prediction readable}
+\small
+For the context \texttt{see spot run}, tokenization gives $\x=[0,1,2,3]$. After the MLP:
+\[
+\hat{\mathbf p}=\left[\hat p_{\texttt{<pad>}},\hat p_{\texttt{see}},\hat p_{\texttt{spot}},\hat p_{\texttt{run}},\hat p_{\texttt{fast}},\hat p_{\texttt{<eot>}}\right].
+\]
+\begin{columns}[T]
+\column{.55\textwidth}
+\begin{block}{Decode}
+$\hat y=\arg\max_{j\in\{0,\ldots,5\}}\hat p_j$ is an ID. The inverse vocabulary map converts it back to text: $\hat y=4\mapsto\texttt{fast}$.
+\end{block}
+\begin{block}{Generate another token}
+Append the decoded ID, shift the context to $[1,2,3,4]$, and predict again. A learned model should then assign high probability to \texttt{<eot>}.
+\end{block}
+\column{.39\textwidth}\centering
+\begin{tikzpicture}[>=Latex, every node/.style={font=\small}]
+\node[draw,rounded corners,fill=blue!8] (a) {\texttt{see spot run}};
+\node[draw,rounded corners,fill=blue!8,below=7mm of a] (b) {$[0,1,2,3]$};
+\node[draw,rounded corners,fill=blue!8,below=7mm of b] (c) {$\arg\max\hat{\mathbf p}=4$};
+\node[draw,rounded corners,fill=blue!8,below=7mm of c] (d) {\texttt{fast}};
+\draw[->] (a)--(b); \draw[->] (b)--node[right]{MLP}(c); \draw[->] (c)--node[right]{inverse map}(d);
+\end{tikzpicture}
+\end{columns}
+\end{frame}
+
+\begin{frame}{What the two-dimensional embedding plot shows}
+\small
+\begin{columns}[T]
+\column{.56\textwidth}
+The notebook plots the learned $2$-D vector $\E_j\in\mathbb R^2$ associated with each vocabulary token after training.
+\begin{itemize}
+\item Tokens used in similar predictive contexts can become nearby; this is an empirical pattern, not a guarantee in a tiny dataset.
+\item The axes themselves have no fixed linguistic interpretation: rotating or reflecting all embeddings can leave equivalent downstream behavior after compensating weights.
+\item The plot is useful for inspecting the representation, while softmax probabilities remain the model's next-word output.
+\end{itemize}
+\column{.39\textwidth}
+\begin{block}{Notebook correspondence}
+Same vocabulary, four padded examples, $2$-D token embeddings, $4$ hidden units, cross-entropy training, decoding, and an embedding scatter plot.
+\end{block}
+\vspace{1em}
+\centering\Large text $\rightarrow$ IDs $\rightarrow$ embeddings $\rightarrow$ probabilities $\rightarrow$ text
+\end{columns}
+\end{frame}
+\end{document}
