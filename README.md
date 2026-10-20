@@ -40,7 +40,8 @@ Install the locked project dependencies from the repository root:
 uv sync --locked
 ```
 
-Individual lectures may have additional setup notes. For the next-token MLP
-example, including optional NVIDIA GPU acceleration, see
-[lecture 1](lecture/lec_1/README.md).
+Individual lectures may have additional setup notes. Lecture 1 now combines
+the next-token MLP example with transformer concepts, a plain-language summary,
+canonical references, and the Promontory AI GWU practicum guest lecture; its setup notes also cover
+optional NVIDIA GPU acceleration. See [lecture 1](lecture/lec_1/README.md).
 

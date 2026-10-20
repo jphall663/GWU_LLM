@@ -237,3 +237,6 @@ __marimo__/
 
 # Mac Thumbnails
 *.DS_Store
+
+# Local supporting materials
+/misc/existing_materials/

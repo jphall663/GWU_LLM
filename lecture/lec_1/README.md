@@ -1,8 +1,16 @@
-# Lecture 1: Next-token MLP primer
+# Lecture 1: LLM and transformer foundations
 
 `next_word_primer.ipynb` and the slides built from `lecture_1.tex` present the
 same small next-token model: a four-token context window, two-dimensional
-token embeddings, four hidden units, and six output probabilities.
+token embeddings, four hidden units, and six output probabilities. The slides
+then connect that model to tokenization, embeddings, attention, transformer
+blocks, generation, reasoning, inference-time scaling, and alignment.
+
+The deck uses canonical academic references collected in `references.bib` and
+links each source directly from the relevant slide. It also incorporates the
+[Promontory AI GWU practicum guest lecture](https://promontoryai.com/gwu-practicum-26/)
+as a bridge from transformer fundamentals to the modern AI stack, particularly
+reasoning models, inference-time compute, and post-training alignment.
 
 Concise teaching and implementation notes are in [instructor_notes.md](instructor_notes.md).
 

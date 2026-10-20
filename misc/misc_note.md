@@ -24,6 +24,20 @@
 | 6   | **TEVV for LLM applications**                           | Test datasets, component/end-to-end evaluation, correctness, LLM judges, human review, regression testing, and error analysis.        |
 | —   | **Final exam**                                          | Applied scenarios: select an architecture, diagnose failures, interpret outputs, and design appropriate tests.                        |
 
+#### Development plan 
+
+Ranked by the amount and depth of reusable supporting material:
+
+1. Lecture 7 — TEVV for LLM applications
+2. Lecture 5 — RAG and knowledge pipelines
+3. Lecture 1 — LLM and transformer foundations
+4. Lecture 6 — Tool use and agentic workflows
+5. Lecture 4 — Context engineering, memory, and state
+6. Lecture 2 — Prompting and prompt development
+7. Lecture 3 — Model APIs, structured outputs, and typed decisions
+
+Lecture 7 has substantially more support than the others. Lectures 2 and 3 have useful examples, but lack coherent, lecture-length coverage—especially structured outputs and typed decisions in Lecture 3.
+
 ### Lecture 1
 
 #### Opener
@@ -52,3 +66,10 @@ Additional conceptual topics:
 - inference time compute/inference scaling
 
 - alignment processes
+
+
+
+
+
+
+
