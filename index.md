@@ -26,6 +26,10 @@ Corrections or suggestions? Please [open an issue](https://github.com/jphall663/
 
 Tokens, embeddings, attention, transformers, generation; reasoning models and inference-time reasoning.
 
+![An encoder--decoder transformer stacks attention and feed-forward blocks to transform token representations into vocabulary predictions.](lecture/lec_1/asset/transformer_basics.jpg)
+
+<sub><sup>Transformer encoder and decoder stacks with attention and feed-forward blocks. **Source:** Adapted from [Vaswani et al. (2017), *Attention Is All You Need*](https://arxiv.org/abs/1706.03762).</sup></sub>
+
 ### Lecture 1 class materials
 
 - [Lecture slides](lecture/lec_1/lecture_1.pdf)
