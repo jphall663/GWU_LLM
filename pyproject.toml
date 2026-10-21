@@ -8,8 +8,11 @@ dependencies = [
     "jupyterlab>=4.3.0",
     "matplotlib>=3.9.0",
     "numpy>=2.1.0",
+    "openai>=2.6.0",
+    "python-dotenv>=1.1.0",
     "keras>=3.0.0",
-    "tensorflow[and-cuda]>=2.0.0",
+    "tensorflow>=2.0.0; sys_platform != 'linux'",
+    "tensorflow[and-cuda]>=2.0.0; sys_platform == 'linux'",
 ]
 
 [tool.uv]

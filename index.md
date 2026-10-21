@@ -72,10 +72,20 @@ orchestration; Text2SQL as a worked example.
 
 ## Lecture 7: TEVV for LLM applications
 
-Test datasets, component/end-to-end evaluation, correctness, LLM judges,
-human review, regression testing, and error analysis.
+Measurement science, benchmarks and their limitations, LLM judges, embedding-
+and classifier-based tests, red teaming, field testing, human review, and
+validation of AI measurement instruments.
 
-*Materials forthcoming.*
+![A model-testing workflow combines benchmark cases with embedding-based diagnostics and human-interpretable evidence.](lecture/lec_7/asset/model-testing-benchmarks-and-embeddings.png)
+
+<sub><sup>Benchmark and embedding-based model testing should support a stated construct and decision rather than a leaderboard alone. **Source:** Sudjianto et al. (2024), [*Human-Calibrated Automated Testing and Validation of Generative Language Models*](https://arxiv.org/pdf/2411.16391).</sup></sub>
+
+### Lecture 7 class materials
+
+- [Lecture slides](lecture/lec_7/lecture_7.pdf)
+- [Simple benchmark and embedding tests](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/benchmark_embeddings.ipynb)
+- [LLM-as-a-judge validation](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/llm_as_judge.ipynb)
+- [Bounded red-teaming examples](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/red_teaming.ipynb)
 
 ## Software configuration
 

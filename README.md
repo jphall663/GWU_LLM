@@ -45,3 +45,12 @@ the next-token MLP example with transformer concepts, a plain-language summary,
 canonical references, and the Promontory AI GWU practicum guest lecture; its setup notes also cover
 optional NVIDIA GPU acceleration. See [lecture 1](lecture/lec_1/README.md).
 
+Lecture 7 covers AI test, evaluation, verification, and validation (TEVV), with
+a GW Beamer deck and three executable examples for benchmarks and embeddings,
+LLM-as-a-judge validation, and bounded red teaming. The examples use the direct
+OpenAI API. Add `OPENAI_API_KEY` to an ignored repository-root `.env` file, then
+run `uv sync --locked`; see [lecture 7](lecture/lec_7/README.md) for commands.
+
+The lockfile is cross-platform: standard TensorFlow is installed on macOS and
+the `and-cuda` extra is installed on Linux for compatible NVIDIA environments.
+

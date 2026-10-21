@@ -238,5 +238,9 @@ __marimo__/
 # Mac Thumbnails
 *.DS_Store
 
+# Local prompt materials
+prompt/
+/AGENTS.md
+
 # Local supporting materials
 /misc/existing_materials/
