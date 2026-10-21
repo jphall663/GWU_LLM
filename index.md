@@ -33,7 +33,7 @@ Tokens, embeddings, attention, transformers, generation; reasoning models and in
 ### Lecture 1 class materials
 
 - [Lecture slides](lecture/lec_1/lecture_1.pdf)
-- [Software example notebook](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_1/next_word_primer.ipynb)
+- **Software example:** [Predicting the next word](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_1/next_word_primer.ipynb)
 
 ## Lecture 2: Prompting and prompt development
 
@@ -83,9 +83,10 @@ validation of AI measurement instruments.
 ### Lecture 7 class materials
 
 - [Lecture slides](lecture/lec_7/lecture_7.pdf)
-- [Simple benchmark and embedding tests](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/benchmark_embeddings.ipynb)
-- [LLM-as-a-judge validation](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/llm_as_judge.ipynb)
-- [Bounded red-teaming examples](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/red_teaming.ipynb)
+- **Software examples:**
+  - [Simple benchmark and embedding tests](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/benchmark_embeddings.ipynb)
+  - [LLM-as-a-judge validation](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/llm_as_judge.ipynb)
+  - [Bounded red-teaming examples](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_7/red_teaming.ipynb)
 
 ## Software configuration
 
