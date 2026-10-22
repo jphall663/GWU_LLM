@@ -61,9 +61,9 @@ memory, and state management.
 Ingestion, chunking, retrieval embeddings, vector/hybrid search, reranking,
 grounded answers, and citations.
 
-![A retrieval-augmented generation pipeline passes a question through retrieval and attributed context into a grounded answer.](lecture/lec_5/asset/rag_pipeline.png)
+![A retrieval-augmented generation diagram shows a user query retrieving relevant documents, adding them to the LLM context, and producing a grounded answer.](<misc/existing_materials/06_GAI Learning - RAG.jpg>)
 
-<sub><sup>RAG combines retrieved non-parametric memory with generation so answers can be tied to an explicit source corpus. **Source:** Lewis et al. (2020), [*Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html).</sup></sub>
+<sub><sup>RAG retrieves relevant documents, adds them to the model context, and grounds the resulting answer in the selected sources.</sup></sub>
 
 ### Lecture 5 class materials
 
