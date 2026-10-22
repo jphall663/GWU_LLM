@@ -61,7 +61,7 @@ memory, and state management.
 Ingestion, chunking, retrieval embeddings, vector/hybrid search, reranking,
 grounded answers, and citations.
 
-![A retrieval-augmented generation diagram shows a user query retrieving relevant documents, adding them to the LLM context, and producing a grounded answer.](<misc/existing_materials/06_GAI Learning - RAG.jpg>)
+![A retrieval-augmented generation diagram shows a user query retrieving relevant documents, adding them to the LLM context, and producing a grounded answer.](lecture/lec_5/asset/rag_learning.jpg)
 
 <sub><sup>RAG retrieves relevant documents, adds them to the model context, and grounds the resulting answer in the selected sources.</sup></sub>
 
