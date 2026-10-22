@@ -22,10 +22,42 @@ analysis.
 
 ## Notebook discussion points
 
+### API-key loading
+
+Each Lecture 7 notebook searches from its current working directory upward for
+the first `.env` file, loads that file with `python-dotenv`, and reads
+`OPENAI_API_KEY` from the resulting process environment. It passes the value
+directly to `OpenAI(api_key=api_key)` without printing it. If the variable is
+absent, `getpass` requests a value without echoing it; the value then exists
+only in that running kernel unless the user saves it elsewhere. The repository
+ignores `.env`, but that protects against ordinary Git staging rather than
+making a local file inaccessible to other processes that the user authorizes.
+
+### Matrix multiplication in the embedding classifier
+
+In Python, `@` calls matrix multiplication. For NumPy arrays,
+`prototype_vectors @ vector` takes the dot product of each prototype row with
+the request vector, producing one similarity score per prototype. Because the
+notebook normalizes every embedding to unit length first, each dot product is
+also cosine similarity. In contrast, `*` would multiply corresponding entries
+element by element and would not produce the intended classifier scores.
+
 The benchmark is deliberately small. Its 100% live-run accuracy has a wide
 Wilson interval and cannot support a production claim. The embedding example
 also uses transparent prototypes; ask students how labels, thresholds, model
 versions, and domain shift could invalidate it.
+
+### Embedding plot
+
+The final benchmark-notebook plot is a deterministic PCA projection of the
+embedding vectors, included to make the prototype classifier inspectable. The
+classifier continues to assign requests by cosine similarity in the original
+128-dimensional space; the plot must not be read as a two-dimensional nearest-
+neighbor decision rule. Colors identify the expected intent, diamonds are
+prototypes, and dashed arrows show the prototype selected in the original
+space. Ask students whether apparent two-dimensional proximity agrees with the
+reported classifier decision, and use any disagreement to discuss projection
+loss.
 
 The LLM judge was perfectly repeatable across two runs in the saved execution
 but agreed exactly with the small human reference ratings only 70% of the time.

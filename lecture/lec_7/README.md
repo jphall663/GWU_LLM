@@ -33,7 +33,8 @@ uv run jupyter lab lecture/lec_7/
 The three notebooks are:
 
 - `benchmark_embeddings.ipynb`: a transparent multiple-choice benchmark,
-  Wilson interval, slice analysis, and embedding-based intent classifier.
+  Wilson interval, slice analysis, embedding-based intent classifier, and 2-D
+  PCA view of the embedding space.
 - `llm_as_judge.ipynb`: a structured rubric, repeated judgments, and comparison
   with small human reference ratings.
 - `red_teaming.ipynb`: bounded prompt-injection tests, a synthetic canary,
