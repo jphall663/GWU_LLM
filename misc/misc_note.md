@@ -24,7 +24,37 @@
 | 6   | **TEVV for LLM applications**                           | Test datasets, component/end-to-end evaluation, correctness, LLM judges, human review, regression testing, and error analysis.        |
 | —   | **Final exam**                                          | Applied scenarios: select an architecture, diagnose failures, interpret outputs, and design appropriate tests.                        |
 
-#### Development plan 
+#### Student evaluation plan
+
+- One in-class quiz per lecture and an in-class final exam
+  
+  - Across slides and code
+
+- Homework consists of sample quiz, but is not graded, just a study guide
+
+- Develop 20 difficult short answer questions with deterministic answers per lecture
+
+- Sample 10 with replacement for
+  
+  - study guide
+  
+  - quiz
+  
+  - exam section
+
+- Take quizes and exams on BB lockdown browser
+
+- Submit via BB for BB-rubric grading
+
+- Will require:
+  
+  - Quizzes and keys/rubrics for each lecture (2 forms)
+  
+  - Study guides for each lecture
+  
+  - Final and key/rubric across all lectures (2 forms) 
+
+#### Development plan
 
 Ranked by the amount and depth of reusable supporting material:
 
@@ -66,10 +96,3 @@ Additional conceptual topics:
 - inference time compute/inference scaling
 
 - alignment processes
-
-
-
-
-
-
-

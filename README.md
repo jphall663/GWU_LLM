@@ -45,6 +45,11 @@ the next-token MLP example with transformer concepts, a plain-language summary,
 canonical references, and the Promontory AI GWU practicum guest lecture; its setup notes also cover
 optional NVIDIA GPU acceleration. See [lecture 1](lecture/lec_1/README.md).
 
+Lecture 5 covers retrieval-augmented generation (RAG) and knowledge pipelines,
+with a GW Beamer deck and a direct-OpenAI-API notebook that demonstrates
+attributed ingestion, subcategory-based semantic chunking, lexical and embedding
+retrieval, hybrid ranking, reranking, and cited answers. See [lecture 5](lecture/lec_5/README.md).
+
 Lecture 7 covers AI test, evaluation, verification, and validation (TEVV), with
 a GW Beamer deck and three executable examples for benchmarks, embeddings, and
 a 2-D embedding view; LLM-as-a-judge validation; and bounded red teaming. The

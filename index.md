@@ -61,7 +61,14 @@ memory, and state management.
 Ingestion, chunking, retrieval embeddings, vector/hybrid search, reranking,
 grounded answers, and citations.
 
-*Materials forthcoming.*
+![A retrieval-augmented generation pipeline passes a question through retrieval and attributed context into a grounded answer.](lecture/lec_5/asset/rag_pipeline.png)
+
+<sub><sup>RAG combines retrieved non-parametric memory with generation so answers can be tied to an explicit source corpus. **Source:** Lewis et al. (2020), [*Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html).</sup></sub>
+
+### Lecture 5 class materials
+
+- [Lecture slides](lecture/lec_5/lecture_5.pdf)
+- **Software example:** [Cited RAG over NIST AI RMF actions](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_5/rag_pipeline.ipynb)
 
 ## Lecture 6: Tool use and agentic workflows
 
