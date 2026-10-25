@@ -45,6 +45,11 @@ the next-token MLP example with transformer concepts, a plain-language summary,
 canonical references, and the Promontory AI GWU practicum guest lecture; its setup notes also cover
 optional NVIDIA GPU acceleration. See [lecture 1](lecture/lec_1/README.md).
 
+Lecture 2 covers prompting and prompt development with a GW Beamer deck, a
+direct-OpenAI-API notebook that compares zero-shot and few-shot routing prompts,
+and an example bounded goal prompt for a course-grounded chat assistant. See
+[lecture 2](lecture/lec_2/README.md).
+
 Lecture 5 covers retrieval-augmented generation (RAG) and knowledge pipelines,
 with a GW Beamer deck and a direct-OpenAI-API notebook that demonstrates
 attributed ingestion, subcategory-based semantic chunking, lexical and embedding

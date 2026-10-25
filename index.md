@@ -40,7 +40,15 @@ Tokens, embeddings, attention, transformers, generation; reasoning models and in
 Instructions, system prompts, examples/in-context learning, templates, task
 decomposition, and iterative refinement.
 
-*Materials forthcoming.*
+![A prompt-development lifecycle moves from goal framing to design, examples or workflow stages, evaluation, and monitored release.](lecture/lec_2/asset/prompt-development-lifecycle.png)
+
+<sub><sup>Prompt development should make task framing, reusable structure, comparison, and monitored release explicit. **Source:** Adapted from [Brown et al. (2020), *Language Models Are Few-Shot Learners*](https://proceedings.neurips.cc/paper_files/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf), [Bach et al. (2022), *PromptSource*](https://github.com/bigscience-workshop/promptsource), and [Zhu et al. (2024), *PromptBench*](https://arxiv.org/abs/2312.07910).</sup></sub>
+
+### Lecture 2 class materials
+
+- [Lecture slides](lecture/lec_2/lecture_2.pdf)
+- **Software example:** [Practical prompt development](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_2/prompt_development.ipynb)
+- [Example goal prompt](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_2/goal_prompt.md)
 
 ## Lecture 3: Model APIs, structured outputs, and typed decisions
 
