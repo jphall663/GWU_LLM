@@ -50,6 +50,12 @@ direct-OpenAI-API notebook that compares zero-shot and few-shot routing prompts,
 and an example bounded goal prompt for a course-grounded chat assistant. See
 [lecture 2](lecture/lec_2/README.md).
 
+Lecture 3 covers model APIs, structured outputs, and typed decisions with a GW
+Beamer deck and a direct-OpenAI-API notebook. The example inspects request and
+response metadata, compares operating settings, streams output, validates
+Pydantic-backed structured data, routes a typed complaint-triage decision, and
+evaluates it against labeled cases. See [lecture 3](lecture/lec_3/README.md).
+
 Lecture 5 covers retrieval-augmented generation (RAG) and knowledge pipelines,
 with a GW Beamer deck and a direct-OpenAI-API notebook that demonstrates
 attributed ingestion, subcategory-based semantic chunking, lexical and embedding

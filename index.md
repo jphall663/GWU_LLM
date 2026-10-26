@@ -55,7 +55,14 @@ decomposition, and iterative refinement.
 Requests/responses, parameters, streaming, error handling; JSON schemas,
 Pydantic validation, and Jev-style typed decisions.
 
-*Materials forthcoming.*
+![Four stacked controls for a reliable model API application: bound the request, validate data, bound the decision, and test claims.](lecture/lec_3/asset/api_guidelines.png)
+
+<sub><sup>Reliable model API applications layer bounded requests, validated data, controlled decisions, and evaluation. **Source:** Course diagram, adapted from Lecture 3; API concepts follow [OpenAI (2026), *Text generation*](https://developers.openai.com/api/docs/guides/text?lang=python) and risk-management context follows [NIST (2024), *Generative AI Profile*](https://doi.org/10.6028/NIST.AI.600-1).</sup></sub>
+
+### Lecture 3 class materials
+
+- [Lecture slides](lecture/lec_3/lecture_3.pdf)
+- **Software example:** [Model APIs, structured outputs, and typed decisions](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_3/model_apis_structured_outputs.ipynb)
 
 ## Lecture 4: Context engineering, memory, and state
 
