@@ -78,7 +78,7 @@ grounded answers, and citations.
 
 ![A retrieval-augmented generation diagram shows a user query retrieving relevant documents, adding them to the LLM context, and producing a grounded answer.](lecture/lec_5/asset/rag_learning.jpg)
 
-<sub><sup>RAG retrieves relevant documents, adds them to the model context, and grounds the resulting answer in the selected sources.</sup></sub>
+<sub><sup>RAG retrieves relevant documents, adds them to the model context, and grounds the resulting answer in the selected sources. <strong>Source:</strong> Patrick Hall, <a href="https://github.com/jphall663/GWU_LLM/blob/main/misc/existing_materials/06_GAI%20Learning%20-%20RAG.jpg"><em>GAI Learning: Retrieval-Augmented Generation</em></a>.</sup></sub>
 
 ### Lecture 5 class materials
 
