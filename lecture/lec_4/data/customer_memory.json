@@ -1,0 +1,12 @@
+{
+  "CUST-101": {
+    "delivery_preference": "Use the parcel locker",
+    "confirmed": true,
+    "updated_at": "2026-10-27"
+  },
+  "CUST-202": {
+    "delivery_preference": "Require a signature",
+    "confirmed": true,
+    "updated_at": "2026-10-27"
+  }
+}

@@ -56,6 +56,13 @@ response metadata, compares operating settings, streams output, validates
 Pydantic-backed structured data, routes a typed complaint-triage decision, and
 evaluates it against labeled cases. See [lecture 3](lecture/lec_3/README.md).
 
+Lecture 4 covers context engineering, memory, and state with a GW Beamer deck
+and a direct-OpenAI-API notebook. The example separates conversation history,
+persistent customer memory, case state, and current-call context; measures exact
+input tokens; enforces a teaching budget; compares history strategies and
+context quality; persists synthetic, customer-isolated JSON memory; and tests
+application invariants. See [lecture 4](lecture/lec_4/README.md).
+
 Lecture 5 covers retrieval-augmented generation (RAG) and knowledge pipelines,
 with a GW Beamer deck and a direct-OpenAI-API notebook that demonstrates
 attributed ingestion, subcategory-based semantic chunking, lexical and embedding

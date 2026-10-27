@@ -69,7 +69,14 @@ Pydantic validation, and Jev-style typed decisions.
 Context assembly, windows and budgets, conversation history, persistent
 memory, and state management.
 
-*Materials forthcoming.*
+![Conversation history, persistent memory, and task state pass through selection, validation, ordering, and budgeting before becoming context for one model call.](lecture/lec_4/asset/context-engineering-memory-state.png)
+
+<sub><sup>History, persistent memory, and application state become current-call context only when selected and budgeted. **Source:** Patrick Hall (2026), *Lecture 4: Context Engineering, Memory, and State*; memory architecture informed by [Packer et al. (2023), *MemGPT: Towards LLMs as Operating Systems*](https://arxiv.org/abs/2310.08560).</sup></sub>
+
+### Lecture 4 class materials
+
+- [Lecture slides](lecture/lec_4/lecture_4.pdf)
+- **Software example:** [Context engineering, memory, and state](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_4/context_engineering.ipynb)
 
 ## Lecture 5: RAG and knowledge pipelines
 
