@@ -157,6 +157,17 @@ application-owned invariants: budget compliance, customer isolation, memory
 correction, required state fields, and valid transitions. Neither set alone is
 enough for a production claim.
 
+### Resetting the synthetic memory store
+
+Add a final notebook cell that restores the synthetic JSON memory store to its
+checked-in baseline after the lifecycle demonstration and its assertions have
+run. This makes repeated executions deterministic, prevents a teaching run
+from leaving the repository in a surprising state, and distinguishes temporary
+demonstration mutations from persistent application behavior. Keep the reset
+explicit and label it as cleanup; do not imply that production systems should
+silently discard customer memory. A production deletion or reset must follow
+an authorized retention policy and be auditable.
+
 The JSON file contains only synthetic customer identifiers and preferences. Its
 plain-text format is chosen for inspection, not as a production security model.
 A deployed system would require authentication, authorization, encryption,
