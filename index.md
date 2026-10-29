@@ -97,7 +97,17 @@ grounded answers, and citations.
 Function calling, external connectivity, MCP, bounded agent loops, and
 orchestration; Text2SQL as a worked example.
 
-*Materials forthcoming.*
+![A model requests a tool, application code validates permissions and limits, and tool results return as observations before the next step.](lecture/lec_6/asset/bounded-agent-loop.svg)
+
+<sub><sup>A bounded agent selects operations while application code controls execution, permissions, and termination. **Source:** Patrick Hall (2026), *Lecture 6: Tool Use and Agentic Workflows*; action–observation pattern informed by [Yao et al. (2023), *ReAct*](https://arxiv.org/abs/2210.03629).</sup></sub>
+
+### Lecture 6 class materials
+
+- [Lecture slides](lecture/lec_6/lecture_6.pdf)
+- **Software examples:**
+  - [Text2SQL: fixed workflows and bounded agents](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_6/text_to_sql.ipynb)
+  - [Local MCP calculator](https://github.com/jphall663/GWU_LLM/blob/main/lecture/lec_6/mcp_calculator.ipynb)
+- [Setup and server startup](lecture/lec_6/README.md)
 
 ## Lecture 7: TEVV for LLM applications
 

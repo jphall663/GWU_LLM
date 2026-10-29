@@ -240,7 +240,7 @@ __marimo__/
 
 # Local prompt materials
 prompt/
-/AGENTS.md
+/AGENTS.md*
 
 # Local supporting materials
 /misc/existing_materials/

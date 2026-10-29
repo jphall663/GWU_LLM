@@ -68,6 +68,12 @@ with a GW Beamer deck and a direct-OpenAI-API notebook that demonstrates
 attributed ingestion, subcategory-based semantic chunking, lexical and embedding
 retrieval, hybrid ranking, reranking, and cited answers. See [lecture 5](lecture/lec_5/README.md).
 
+Lecture 6 covers tool use and agentic workflows with a GW Beamer deck and two
+direct-OpenAI-API notebooks: a fixed versus bounded-agent Text2SQL comparison
+over synthetic SQLite sales data, and tool discovery/invocation through a
+separate local MCP calculator server. The shared lockfile includes the MCP v1
+SDK; see [lecture 6](lecture/lec_6/README.md) for startup and execution commands.
+
 Lecture 7 covers AI test, evaluation, verification, and validation (TEVV), with
 a GW Beamer deck and three executable examples for benchmarks, embeddings, and
 a 2-D embedding view; LLM-as-a-judge validation; and bounded red teaming. The
