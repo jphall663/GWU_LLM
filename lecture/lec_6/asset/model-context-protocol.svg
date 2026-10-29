@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="540" viewBox="0 0 1400 540" role="img" aria-labelledby="title desc">
+<title id="title">Model Context Protocol architecture</title>
+<desc id="desc">A host application uses MCP clients to connect tool servers to files, APIs, and databases. Local connections use JSON-RPC over stdio; remote connections use JSON-RPC over Streamable HTTP.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#26465a"/></marker></defs>
+<rect x="2" y="2" width="1396" height="536" rx="16" fill="#eff6fd" stroke="#3976af" stroke-width="2"/>
+<g font-family="Arial, sans-serif" fill="#183446">
+<text x="30" y="47" font-size="28" font-weight="bold">Model Context Protocol architecture</text>
+<rect x="220" y="85" width="290" height="425" rx="14" fill="#f8fafc" stroke="#8797a4" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="365" y="119" text-anchor="middle" font-size="24" font-weight="bold">MCP host</text>
+<text x="650" y="105" text-anchor="middle" font-size="23" font-weight="bold">Transport</text>
+<text x="920" y="105" text-anchor="middle" font-size="23" font-weight="bold">Tool servers</text>
+<text x="1230" y="105" text-anchor="middle" font-size="23" font-weight="bold">Connected systems</text>
+<rect x="20" y="257" width="150" height="70" rx="12" fill="white" stroke="#3976af" stroke-width="2"/>
+<text x="95" y="300" text-anchor="middle" font-size="25" font-weight="bold">User</text>
+<path d="M172 292 H218" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+<rect x="245" y="150" width="240" height="64" rx="10" fill="white" stroke="#b77637" stroke-width="2"/>
+<text x="365" y="191" text-anchor="middle" font-size="24" font-weight="bold">MCP client A</text>
+<path d="M488 182 H792" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="640" y="170" text-anchor="middle" font-size="20">JSON-RPC</text>
+<text x="640" y="207" text-anchor="middle" font-size="20">stdio</text>
+<rect x="800" y="150" width="240" height="64" rx="10" fill="white" stroke="#8860b0" stroke-width="2"/>
+<text x="920" y="191" text-anchor="middle" font-size="24" font-weight="bold">MCP server A</text>
+<path d="M1043 182 H1089" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<rect x="1097" y="150" width="275" height="64" rx="10" fill="white" stroke="#388584" stroke-width="2"/>
+<text x="1234" y="191" text-anchor="middle" font-size="24" font-weight="bold">Local files</text>
+
+<rect x="245" y="235" width="240" height="64" rx="10" fill="white" stroke="#b77637" stroke-width="2"/>
+<text x="365" y="276" text-anchor="middle" font-size="24" font-weight="bold">MCP client B</text>
+<path d="M488 267 H792" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="640" y="255" text-anchor="middle" font-size="20">JSON-RPC</text>
+<text x="640" y="292" text-anchor="middle" font-size="20">stdio</text>
+<rect x="800" y="235" width="240" height="64" rx="10" fill="white" stroke="#8860b0" stroke-width="2"/>
+<text x="920" y="276" text-anchor="middle" font-size="24" font-weight="bold">MCP server B</text>
+<path d="M1043 267 H1089" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<rect x="1097" y="235" width="275" height="64" rx="10" fill="white" stroke="#388584" stroke-width="2"/>
+<text x="1234" y="276" text-anchor="middle" font-size="24" font-weight="bold">Local API</text>
+
+<rect x="245" y="320" width="240" height="64" rx="10" fill="white" stroke="#b77637" stroke-width="2"/>
+<text x="365" y="361" text-anchor="middle" font-size="24" font-weight="bold">MCP client C</text>
+<path d="M488 352 H792" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="640" y="340" text-anchor="middle" font-size="20">JSON-RPC</text>
+<text x="640" y="377" text-anchor="middle" font-size="20">Streamable HTTP</text>
+<rect x="800" y="320" width="240" height="64" rx="10" fill="white" stroke="#8860b0" stroke-width="2"/>
+<text x="920" y="361" text-anchor="middle" font-size="24" font-weight="bold">MCP server C</text>
+<path d="M1043 352 H1089" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<rect x="1097" y="320" width="275" height="64" rx="10" fill="white" stroke="#388584" stroke-width="2"/>
+<text x="1234" y="361" text-anchor="middle" font-size="24" font-weight="bold">Remote database</text>
+
+<rect x="245" y="405" width="240" height="64" rx="10" fill="white" stroke="#b77637" stroke-width="2"/>
+<text x="365" y="446" text-anchor="middle" font-size="24" font-weight="bold">MCP client D</text>
+<path d="M488 437 H792" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="640" y="425" text-anchor="middle" font-size="20">JSON-RPC</text>
+<text x="640" y="462" text-anchor="middle" font-size="20">Streamable HTTP</text>
+<rect x="800" y="405" width="240" height="64" rx="10" fill="white" stroke="#8860b0" stroke-width="2"/>
+<text x="920" y="446" text-anchor="middle" font-size="24" font-weight="bold">MCP server D</text>
+<path d="M1043 437 H1089" stroke="#26465a" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<rect x="1097" y="405" width="275" height="64" rx="10" fill="white" stroke="#388584" stroke-width="2"/>
+<text x="1234" y="446" text-anchor="middle" font-size="24" font-weight="bold">External API</text>
+
+</g></svg>

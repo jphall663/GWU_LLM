@@ -68,8 +68,10 @@ with a GW Beamer deck and a direct-OpenAI-API notebook that demonstrates
 attributed ingestion, subcategory-based semantic chunking, lexical and embedding
 retrieval, hybrid ranking, reranking, and cited answers. See [lecture 5](lecture/lec_5/README.md).
 
-Lecture 6 covers tool use and agentic workflows with a GW Beamer deck and two
-direct-OpenAI-API notebooks: a fixed versus bounded-agent Text2SQL comparison
+Lecture 6 covers tool use and agentic workflows, with bounded agent loops
+opening the orchestration and oversight section, followed by agent permissions
+and identity guidance. It includes a GW
+Beamer deck and two direct-OpenAI-API notebooks: a fixed versus bounded-agent Text2SQL comparison
 over synthetic SQLite sales data, and tool discovery/invocation through a
 separate local MCP calculator server. The shared lockfile includes the MCP v1
 SDK; see [lecture 6](lecture/lec_6/README.md) for startup and execution commands.

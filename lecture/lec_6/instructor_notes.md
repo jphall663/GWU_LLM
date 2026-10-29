@@ -16,6 +16,15 @@ agent is unnecessary for the notebook's small analytics task.
 
 ## What distinguishes a tool, workflow, and agent?
 
+Slide 4 labels the first transition "increased complexity" because connecting
+external operations adds integration and execution controls. The second is
+"increased autonomy" because the model gains discretion over the next step.
+More external operations alone do not imply more model autonomy; a fixed
+workflow can use many tools while retaining predefined control flow.
+The slide's progression and design guidance adapt Anthropic's (2024)
+*Building effective agents*, credited in a linked source line at the bottom
+of the frame rather than a detached citation in the right column.
+
 A tool implements an operation. A fixed workflow chooses the sequence in code;
 its model may still choose a SQL statement or a typed stop decision. In an
 agent, the model chooses some next steps based on feedback, while the host
@@ -23,7 +32,29 @@ retains tool permissions and limits. Tool calling alone does not imply a
 general autonomous agent. A framework is optional: the short loop makes the
 control flow and its stop conditions inspectable.
 
+Slide 2 explicitly defines an agent as a software component that uses an LLM
+to choose actions or next steps toward a goal, within application-defined
+limits. Slide 3 distinguishes model-directed control flow, and slide 11
+illustrates implementation with a model/tool loop. "A code module with an LLM
+call" is a useful implementation intuition, but it also describes fixed
+summarization or extraction steps. An agent
+can be implemented with model calls, context/state, permitted tools, and stop
+rules. Modularity is a design choice, not the distinguishing property of an
+agent. The model need not run as a separate process, and multiple calls can
+belong to one agent.
+
 ## Why these business definitions?
+
+"Grain" is common vocabulary in data modeling, data warehousing, and analytics,
+though it is not an SQL keyword. "Row-level detail" is a more accessible
+introductory phrase. On slide 7, it means the level of detail represented by one row. A
+customers row represents one customer; an orders row represents one order;
+an order_items row represents one line item. Joining orders to order_items
+produces item-level rows, so an order with three items appears three times.
+`COUNT(*)` then counts items, while `COUNT(DISTINCT order_id)` counts orders.
+Sum line-item amounts for sales, but do not sum an order-level total repeated
+on each item row. Establish the intended row meaning before joining and
+aggregating.
 
 Freeze the reference date at 2026-10-15 so last quarter never changes with the
 execution date. Use a half-open interval, 2026-07-01 <= date < 2026-10-01, to
@@ -42,7 +73,59 @@ included regions have one order each. The cancelled South order, pending West
 order, June 30 order, and October 1 order are excluded. These fixtures expose
 status, boundary, join-grain, and missing-value mistakes.
 
+Slide 8 continues slide 7's request: "Which regions had the highest net sales
+last quarter?" Slide 7 supplies the schema, row meaning, and business rules;
+slide 8 implements those rules in SQL and shows the reference result. Its
+three-table join, completed-status filter, July--September 2026 date interval,
+discount subtraction, and Unknown region group all correspond to that request.
+
+`COALESCE` returns its first non-NULL argument. On slide 8,
+`COALESCE(c.region, 'Unknown')` replaces a missing region with the label
+Unknown, while `COALESCE(i.discount_cents, 0)` replaces a missing discount with
+zero. Otherwise subtracting a NULL discount produces NULL, and SUM ignores
+that line's NULL amount, understating sales. These replacements implement
+explicit business definitions rather than universally appropriate defaults.
+COALESCE does not replace zero or an empty string, since neither is SQL NULL.
+
+## Does slide 5 specify a result contract?
+
+Yes. Slide 5 now places the request schema beside an application-defined
+`QueryResult` type: `QuerySuccess` requires `ok=True`, `columns`, `rows`,
+`truncated`, and `latency_ms`; `QueryError` requires `ok=False` and `error`, with
+optional latency because argument rejection can occur before execution.
+The former `get_schema()` bullet has been removed to make room. The type sketch
+omits imports of `TypedDict`, `Literal`, and `NotRequired` from `typing`.
+
+`strict=True` constrains generated arguments, not returned tool results.
+`TypedDict` documents the executor's dictionary shapes; it does not add runtime
+validation. The notebook separately checks success/truncation before using
+results and compares returned data against independent references.
+
 ## Why does a SELECT-prefix check not suffice?
+
+On slide 15, `PRAGMA` is SQLite's special command for inspecting or changing
+database and connection settings. `PRAGMA query_only=ON` enables query-only
+mode on the connection, preventing ordinary data/schema writes. It configures
+execution rather than retrieving business records as SELECT does. PRAGMAs
+are SQLite-specific rather than portable standard SQL. This setting is one
+layer alongside the read-only connection and default-deny authorizer; the
+model cannot issue arbitrary PRAGMAs through the approved query tool.
+
+The slide 15 title "Explicitly restrict what agents can do" means
+that each tool should receive only the access it needs, and application/database
+controls should enforce those restrictions. For example, a sales-reporting tool
+can read approved sales tables but cannot modify records or read private tables.
+The title expresses least privilege in plain language. Restrictions on the
+agent are enforced through its permitted tools, application code, and connected
+systems.
+
+Slide 15's last bullet (the Lecture 6 code example allows only three sales
+tables and named functions)
+refers to `connection.set_authorizer(allow_approved_reads)` in the simplified
+code. The callback's body is omitted from the slide. In `utils.py`, the actual
+callback is named `authorize` and consults `ALLOWED_TABLES` (customers, orders,
+order_items) and `ALLOWED_FUNCTIONS`, denying other operations by default.
+The PRAGMA and read-only connection do not themselves enforce those allowlists.
 
 SQL text checks do not establish authorization, prevent expensive reads, or
 restrict access to sensitive tables. The executor opens a fresh read-only
@@ -63,6 +146,40 @@ execution, appropriate data minimization, and stronger operational limits.
 
 ## How are loops bounded and errors handled?
 
+Bounded loops are general agent-control mechanisms, not SQL-specific concepts.
+They open the Orchestration and oversight section, before the orchestration
+patterns, multi-agent handoffs, and permission controls. Loop limits explain
+how orchestration repeats steps and stops execution. The tool-neutral repair
+example converts an explicitly supplied date into the format required by a
+lookup tool. The Text2SQL notebook applies the same mechanism to a deliberately
+seeded missing-column error; the SQL example points to that application without
+making loop control a SQL-specific topic.
+
+On slide 12, the left-hand pseudocode does not explicitly convert a date.
+`history += request_and_result(response, result)` returns tool feedback to the
+conversation; the next `ask_model(history)` can use that feedback to request a
+revised argument. The right-hand date-format example illustrates that possible
+repair. It is not a date parser hidden in `dispatch_checked_request`, nor does
+the pseudocode guarantee that the model will repair the error correctly.
+
+Slide 6 shows the two halves of the handoff in top-aligned columns. The left
+column calls `client.responses.create` with the question, policy, and tool
+contracts, checks completion, and preserves the response output. The right
+column records, dispatches, and returns requested tool results by `call_id`.
+To connect slides 5 and 6, slide 5 assigns the `run_query` definition to `TOOLS`,
+which slide 6 passes to the model. Slide 6 asks "How many orders are there?";
+the illustrated request uses `SELECT COUNT(*) FROM orders`. Its dispatcher
+returns the `QueryResult` shape defined on slide 5, including `rows=[[9]]` for
+the synthetic fixture. The annotation documents that shape without implying
+runtime type enforcement. These captions illustrate a possible model request,
+not a guarantee of the model's exact SQL or a new recorded API run.
+Repeat the model call with the updated history to obtain the next step or final
+answer; the Orchestration and oversight section supplies the enclosing stop rules.
+The execution order is left, right, then left again: request a model response,
+execute any requested tools and append their results, then call the model with
+that evidence. If the first response is already a final answer without tool
+requests, the right-hand loop performs no tool execution.
+
 The normal agent allows at most six tool calls, two tool errors, and seven
 model calls. Incomplete API responses and API failures return explicit failed
 runs; tool/error/model limits return limit_reached. No evidence-free or
@@ -78,6 +195,24 @@ model error or a fair accuracy comparison with the unseeded baseline.
 
 ## What does MCP add?
 
+In slide 9's diagram, the dashed box labeled "MCP host" surrounds clients A--D.
+It represents the coordinating application, not another server or the model
+alone. In the calculator example, the notebook/Python application is the host:
+it calls the model, manages ClientSession, adapts tool contracts, and controls
+dispatch. The diagram shows its client connections rather than all its internal
+model-integration and authorization code.
+
+Slide 9 connects the contracts and dispatch on slides 5--6 to MCP's standard
+protocol. `tools/list` discovers names, descriptions, input schemas, and optional
+output schemas; `tools/call` sends tool names and arguments; result messages
+carry returned content and tool-error status. MCP standardizes how contracts
+are described and exchanged, not the business semantics of every tool.
+Output schemas are optional; do not imply that all MCP tools supply them.
+The host still adapts the discovered definition to its model provider's tool
+format, validates requests/results, and enforces permissions. MCP does not
+choose the SQL or turn a model request into business authorization. This
+distinction is supported by the linked 2025-11-25 Tools specification.
+
 The notebook is the host; its ClientSession connects to a server process.
 `list_tools` discovers the server contract; the host exposes only the approved
 calculator to the model. The model returns a function request. The host
@@ -92,10 +227,16 @@ nonnegative revenues with a positive previous value; the notebook also checks
 that the server rejects zero previous revenue. Use the same currency/scale
 for both arguments. The formula is 100 * (current - previous) / previous = 25%.
 
+On slide 10, `1_200_000` and `1_500_000` use Python's optional underscore digit
+separators. They are numeric literals equal to `1200000` and `1500000`, not
+strings or special MCP syntax. The underscores group digits for readability
+and do not change the arithmetic. JSON numbers do not permit these separators;
+the Python client serializes the numeric values without underscores.
+
 The locked MCP dependency uses the v1 Python SDK interface, constrained below
-v2 for reproducibility. The archived IBM diagram labels remote HTTP+SSE; its
-caption explicitly identifies that older labeling and points students to the
-current Streamable HTTP architecture. MCP discovery does not authenticate a
+v2 for reproducibility. Slide 9's editable vector adaptation updates the
+archived IBM diagram's HTTP+SSE labels to Streamable HTTP, following the MCP
+Transports specification. MCP discovery does not authenticate a
 business user, grant permission, or guarantee correctness. Local subprocesses
 run with host privileges; isolation is a separate deployment decision.
 
@@ -133,20 +274,76 @@ check result correctness and behavior, not full explanation faithfulness.
 Do not claim reliability from a single run on five synthetic cases. Repeat on
 held-out questions and database variants and calibrate any automated grader.
 
-## Security and oversight discussion
+## Where does planning fit in the orchestration table?
 
-A malicious database value or tool description can attempt to redirect an
-agent. Prompts help communicate the trust boundary, but connected-system
-permissions enforce it even when the model is manipulated. The notebook
-simulates a restricted table and directly attempts prohibited writes without
-sending sensitive data to the provider. Its prompt-injection slide is an
-illustrative scenario; the notebook does not claim comprehensive attack testing.
+Slide 14 uses "orchestrator" for the agent or component that delegates bounded
+work to agents and combines their results. This is established terminology
+for the orchestrator--worker pattern. It describes the coordinating role, not
+additional authority to bypass tools' permissions or handoff limits.
 
-For consequential actions, display the exact proposed operation, target,
-parameters, and evidence to an authorized reviewer. Bind approval to those
-values and revalidate before execution. The example never permits a write and
-does not implement an approval service. Redact sensitive data from logs and
-minimize anything included in model context in a real deployment.
+The diagram's "Handoff contents" label describes the information each
+handoff should carry: the assigned objective and expected output; relevant
+schema, definitions, records, or prior tool results; and constraints such as
+permitted tools/data, read-only access, and remaining call/time budgets.
+For example, the query agent receives a regional-sales question, schema
+and date/metric definitions, and read-only execution limits. The report
+agent receives the reporting task, verified query results and definitions,
+and instructions to avoid unsupported claims. Agents should receive the
+context needed for their assignments; it is not automatically inherited merely
+because an orchestrator delegated work. Application code enforces permissions
+and budgets even when they are described in a handoff message.
+
+Planning belongs in slide 13's table, in the "Planning and execution" row.
+It proposes steps or subgoals; execution carries them out under application
+controls. The example identifies the tables, joins, filters, and aggregation
+needed before querying. A model-generated plan does not authorize actions
+or establish that the task is complete.
+
+Clarifying an ambiguous metric can be part of planning because it resolves the
+task's requirements before steps are chosen. It is not a distinct routing
+pattern by itself. The revised routing example sends sales-data questions to
+SQL and policy questions to document retrieval. Sequencing follows a predefined
+generate/validate/execute/summarize path; reflection revises SQL after a real
+missing-column error. These patterns can overlap, but each example emphasizes
+its primary purpose. Routing to document retrieval illustrates the pattern;
+the Text2SQL notebook itself does not implement a policy-retrieval tool.
+
+## Agent identity and basic security (slide 16)
+
+Slide 16 replaces the previous injection/blocked-write material. That topic
+already appears in Lecture 2 slide 16 and Lecture 4 slide 7; validation and
+approval controls also appear in Lecture 3. The replacement adds agent identity
+and accountability, building on slide 15's execution restrictions.
+
+Separate the role label from a verifiable software identity. Keep a responsible
+owner and initiating user/request, scope credentials to the task, use short
+lifetimes, recheck each tool call, log actions, and support revocation. Delegated
+work must not gain wider access. These are design recommendations from Booth,
+Fisher, Galluzzo, and Clancy's NIST blog (2026-10-27), not a claim that a new
+mandatory standard has been issued.
+
+The policy sketch uses fictional identifiers: sales-query-01 can read sales,
+while sales-report-01 receives verified results without database access.
+The ten-minute expiration is an illustrative choice, not a prescribed value.
+Identity strings alone provide no authentication. A trusted credential and
+its verification must bind the request to the identity; user_42 must come from
+verified application context, not a model-supplied claim. An owner need not be
+a human user issuing the current task; it can be the responsible team.
+
+The slide is deployment guidance, not functionality added to the notebook.
+The notebook has database controls and traces but does not provision separate
+agent identities, credentials, or a multi-agent authorization service. A local
+agent module does not inherently require its own OS process or API key.
+Enforce logical-agent permissions through trusted application code or a broker
+when multiple modules share a runtime.
+
+Keep secrets out of prompts and handoffs; handoffs can name allowed scopes
+without carrying raw credentials. MCP's Security Best Practices explains why
+servers must validate intended tokens rather than blindly passing them to
+other services. Credential lifecycle and permissions belong in connected
+systems, not solely in model instructions. Retain human approval for
+consequential actions as a short reminder; Lecture 6 implements no write or
+approval service.
 
 ## Sources and provenance
 
@@ -168,8 +365,11 @@ v1 SDK, and SQLite authorizer/progress documentation support implementation.
 Anthropic's 2024 workflow-pattern article supports design vocabulary, not a
 claim about current managed-agent products.
 
-The IBM architecture image is copied from `HR_AI_Exec_Ed.zip`'s
-`img/model-context-protocol.png`, with IBM's named linked source retained.
+The original IBM architecture PNG is retained from `HR_AI_Exec_Ed.zip`'s
+`img/model-context-protocol.png` for provenance. Slide 9 uses an editable
+`asset/model-context-protocol.svg` adaptation with a vector PDF for pdfLaTeX.
+It preserves the host/client/server layout and updates the transport labels,
+crediting IBM and linking the official MCP Transports specification.
 The website's loop diagram is original course artwork, consistent with the
 slide loop. Reference slides are explicit, top-aligned frames with identical
 titles and scriptsize entries. All content-slide diagrams, code blocks, and

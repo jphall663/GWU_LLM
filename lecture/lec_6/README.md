@@ -1,9 +1,11 @@
 # Lecture 6: Tool use and agentic workflows
 
 The GW Beamer deck covers tools, fixed workflows, agents, function contracts,
-external connectivity and MCP, Text2SQL, bounded loops, orchestration,
-permissions, oversight, and evaluation. It contains 18 content slides, a title,
-and two reference slides.
+Text2SQL as an example tool, external connectivity and MCP, bounded loops, orchestration,
+permissions, agent identity, oversight, and evaluation. It contains 18 content slides, a title,
+and two reference slides. Bounded loops open the Orchestration and oversight
+section, before orchestration patterns and permission controls. The Text2SQL
+notebook applies the same loop controls to SQL error repair.
 
 ## Setup and run
 
@@ -85,6 +87,9 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error lecture_6.tex
 ```
 
 The selected, source-checked bibliography is in [references.bib](references.bib).
+Slide 9's MCP diagram has an editable [SVG source](asset/model-context-protocol.svg)
+and a committed vector PDF used by pdfLaTeX. See [asset notes](asset/README.md)
+for provenance and how to regenerate the PDF after editing the SVG.
 [instructor_notes.md](instructor_notes.md) explains design decisions, evaluation
 limits, source provenance, and facilitation points. The original Text2SQL
 teaching example provides the fixed-pipeline starting point; the new database,

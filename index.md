@@ -94,8 +94,8 @@ grounded answers, and citations.
 
 ## Lecture 6: Tool use and agentic workflows
 
-Function calling, external connectivity, MCP, bounded agent loops, and
-orchestration; Text2SQL as a worked example.
+Function calling, external connectivity, MCP, bounded agent loops,
+orchestration, and agent identity; Text2SQL as a worked example.
 
 ![A model requests a tool, application code validates permissions and limits, and tool results return as observations before the next step.](lecture/lec_6/asset/bounded-agent-loop.svg)
 
