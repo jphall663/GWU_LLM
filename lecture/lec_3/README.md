@@ -33,6 +33,16 @@ used in the failure-handling section.
 uv run jupyter lab lecture/lec_3/model_apis_structured_outputs.ipynb
 ```
 
+### VS Code
+
+JupyterLab is optional. After `uv sync --locked`, open the repository root in
+VS Code with Microsoft's Python and Jupyter extensions installed. Open
+`model_apis_structured_outputs.ipynb`; in **Select Kernel**, choose **Select
+Another Kernel...** → **Python Environments** → `.venv/bin/python`
+(macOS/Linux) or `.venv\Scripts\python.exe` (Windows), then run the cells in
+order. See the [root VS Code setup](../../README.md#run-notebooks-in-vs-code)
+for details.
+
 ## Build the slides
 
 The slide deck uses Biber for citations. Run the command from this directory:

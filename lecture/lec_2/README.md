@@ -27,6 +27,15 @@ model with `OPENAI_TEXT_MODEL`.
 uv run jupyter lab lecture/lec_2/prompt_development.ipynb
 ```
 
+### VS Code
+
+JupyterLab is optional. After `uv sync --locked`, open the repository root in
+VS Code with Microsoft's Python and Jupyter extensions installed. Open
+`prompt_development.ipynb`; in **Select Kernel**, choose **Select Another
+Kernel...** → **Python Environments** → `.venv/bin/python` (macOS/Linux) or
+`.venv\Scripts\python.exe` (Windows), then run the cells in order. See the
+[root VS Code setup](../../README.md#run-notebooks-in-vs-code) for details.
+
 The notebook compares zero-shot and few-shot classification prompts, renders a
 versioned template, tests a refinement against a small held-out set, and
 records the model and prompt versions used.

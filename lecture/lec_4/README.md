@@ -30,6 +30,15 @@ model, `gpt-5-mini`.
 uv run jupyter lab lecture/lec_4/context_engineering.ipynb
 ```
 
+### VS Code
+
+JupyterLab is optional. After `uv sync --locked`, open the repository root in
+VS Code with Microsoft's Python and Jupyter extensions installed. Open
+`context_engineering.ipynb`; in **Select Kernel**, choose **Select Another
+Kernel...** → **Python Environments** → `.venv/bin/python` (macOS/Linux) or
+`.venv\Scripts\python.exe` (Windows), then run the cells in order. See the
+[root VS Code setup](../../README.md#run-notebooks-in-vs-code) for details.
+
 The customer-support example uses synthetic records. It keeps conversation
 history, persistent customer memory, case state, and the assembled request as
 separate objects; displays the request before sending it; obtains exact token

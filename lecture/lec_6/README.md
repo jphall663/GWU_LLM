@@ -23,16 +23,31 @@ it with a model supporting Responses function calling and structured outputs.
 The examples use low reasoning effort, bounded output tokens, a 45-second HTTP
 timeout, and at most one SDK retry. Running them incurs API usage.
 
+### VS Code
+
+JupyterLab is optional. After `uv sync --locked`, open the repository root in
+VS Code with Microsoft's Python and Jupyter extensions installed. Open either
+Lecture 6 notebook; in **Select Kernel**, choose **Select Another Kernel...** →
+**Python Environments** → `.venv/bin/python` (macOS/Linux) or
+`.venv\Scripts\python.exe` (Windows), then run the cells in order. See the
+[root VS Code setup](../../README.md#run-notebooks-in-vs-code) for details.
+
+VS Code supports the top-level `await` used by `mcp_calculator.ipynb`. The
+notebook still starts and stops its local MCP server automatically; do not run
+`calculator_server.py` separately for this workflow.
+
 - [Text2SQL](text_to_sql.ipynb) compares a fixed pipeline and one bounded agent
   on a deterministic, synthetic SQLite sales database. It shows validated tool
   contracts, a shared read-only executor, blocked operations, row truncation,
   query interruption, a deliberately seeded column-error repair, explicit stop
   states, traces, and five reference/behavior cases for each approach.
-- [MCP calculator](mcp_calculator.ipynb) discovers and invokes a tool on
+- [MCP calculator](mcp_calculator.ipynb) discovers two safe tools on
   [calculator_server.py](calculator_server.py), a separate local subprocess.
-  It prints discovery, the live model's request, the protocol result, and the
-  final explanation of 25% revenue growth. It also checks rejection of a zero
-  denominator. The notebook starts and cleans up the server automatically.
+  The model selects `revenue_growth` instead of the irrelevant `sort_numbers`;
+  the host validates and invokes that choice. The notebook prints discovery,
+  the live request, the protocol result, and the final explanation of 25%
+  revenue growth. It also checks rejection of a zero denominator and starts and
+  cleans up the server automatically.
 
 Run each notebook from the first cell to the last. The MCP notebook uses
 Jupyter's top-level `await`; it does not require a second terminal or a port.

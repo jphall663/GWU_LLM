@@ -213,13 +213,59 @@ format, validates requests/results, and enforces permissions. MCP does not
 choose the SQL or turn a model request into business authorization. This
 distinction is supported by the linked 2025-11-25 Tools specification.
 
+The official page's displayed title is `Tools`. The dated URL places it within
+version 2025-11-25 of the MCP specification, but `Protocol Specification` is
+not the page title or a section heading. The BibTeX entry therefore uses the
+exact title `Tools` and records `Model Context Protocol specification, version
+2025-11-25` as a note. The page directly supports the slide's claims about
+`tools/list`, `tools/call`, results, errors, input schemas, and optional output
+schemas. The diagram's transport labels instead use the separate official
+`Transports` page linked in the slide source line.
+
 The notebook is the host; its ClientSession connects to a server process.
-`list_tools` discovers the server contract; the host exposes only the approved
-calculator to the model. The model returns a function request. The host
-validates it and sends call_tool over MCP; the server computes; the host
+`list_tools` discovers `revenue_growth` and the safe but irrelevant
+`sort_numbers`; the host exposes only those two allowlisted contracts. The
+model selects `revenue_growth`, and the host checks that illustrative routing
+decision, validates its arguments, and sends `call_tool` over MCP. The server
+computes; the host
 returns the observation to the model. Direct OpenAI HTTP requests and local
 MCP stdio messages are distinct connections. A locally spawned server is not
 a remote hosted MCP endpoint.
+
+The second tool makes model selection observable: with `tool_choice='required'`
+and only `revenue_growth`, the model previously chose arguments but not a tool.
+`sort_numbers` is deterministic, side-effect-free, and clearly irrelevant to a
+revenue-growth question. The host explicitly allowlists both discovered tools,
+validates the selected name and arguments, and asserts that this worked example
+selects `revenue_growth`. One successful choice is an illustration, not evidence
+of general routing reliability; broader claims require repeated held-out routing
+cases.
+
+In Python, `async` marks code that participates in cooperative asynchronous
+execution; it does not by itself start a thread or make code run in parallel.
+`async def calculator_demo()` creates a coroutine function. Calling it creates
+a coroutine object, and `await` runs it while allowing the event loop to do
+other work whenever the coroutine is waiting for MCP I/O. The two `async with`
+blocks enter and exit asynchronous context managers so the stdio connection and
+client session are initialized and cleaned up without blocking the event loop.
+The synchronous OpenAI SDK calls use `await asyncio.to_thread(...)` so those
+blocking HTTP calls run in a worker thread while the notebook's event loop
+remains responsive. Jupyter already runs an event loop, which is why the final
+cell can use top-level `await` and should not wrap the coroutine in
+`asyncio.run()`.
+
+The calculator's final `client.responses.create` call is the second request in
+a Responses API function-calling exchange, not a simple one-shot generation.
+Its `input` value is a list of typed conversation items, not a list of function
+arguments. The list contains the original user message, every item from the
+first response (`*request.output`, including the function request and any
+reasoning metadata), and a `function_call_output` containing the calculator
+result. The matching `call_id` tells the model which requested function call
+produced that result. Because the notebook sets `store=False`, it replays these
+items explicitly rather than relying on stored state through
+`previous_response_id`. No tools are supplied to the second call, so this
+fixed workflow asks the model to turn the returned evidence into the final
+answer rather than request another action.
 
 The server never receives the host API key. Its stdout is protocol-only, and
 the stdio client context starts and stops it. The calculator validates finite,
@@ -273,6 +319,43 @@ claims, and explicit uncertainty or missing information. The automated cases
 check result correctness and behavior, not full explanation faithfulness.
 Do not claim reliability from a single run on five synthetic cases. Repeat on
 held-out questions and database variants and calibrate any automated grader.
+
+Slide 19's closing comparison aligns with the notebook: both designs use the
+same synthetic data, definitions, model setting, dispatcher, and database
+permissions, while the evaluation reports correctness, tool calls, token use,
+and latency. The separate seeded-error run demonstrates the bounded agent's
+repair path and the fixed workflow's inability to repair, but it is not an
+unseeded accuracy comparison. Treat "cost" as the broader design burden of
+extra calls, usage, latency, and oversight; the notebook does not calculate a
+currency-denominated API cost. Its saved run also shows why the closing
+question is genuine rather than rhetorical: the agent repaired the seeded SQL
+error but used more input tokens and failed one unavailable-metric case that
+the fixed workflow handled correctly.
+
+## Why does slide 17 say not to require hidden chain-of-thought?
+
+The slide distinguishes an auditable execution trace from a model's private
+token-by-token reasoning. Evaluation and incident review should rely on
+observable evidence that the application can consistently retain: model
+status and usage, tool requests, validated arguments, execution results and
+errors, stop status, and the final answer. Those records show what operation
+was requested, what actually ran, what evidence returned, and whether the
+answer is supported.
+
+Hidden chain-of-thought is not a dependable control or audit interface. It may
+be unavailable, incomplete, post-hoc, or different across model providers; it
+can also expose sensitive prompt or context data and produce large, difficult
+to govern logs. Even when a rationale sounds convincing, it does not prove
+that the requested action was authorized or that the returned result supports
+the answer. Conversely, an application can diagnose the regional-sales error
+from the SQL, filters, returned rows, and final explanation without inspecting
+private reasoning.
+
+This does not prohibit concise, user-facing explanations or an explicitly
+requested decision summary. Such text should be treated as another observable
+model output and checked against tool evidence, not as privileged access to the
+model's internal reasoning. The teaching point is to design traces and tests
+that remain useful without hidden chain-of-thought.
 
 ## Where does planning fit in the orchestration table?
 
@@ -398,10 +481,12 @@ choices, and the fixed refusal offers future deletion-script drafting. These
 wording issues illustrate why passing status/result checks is insufficient to
 establish explanation quality or policy alignment.
 
-The MCP run discovered revenue_growth on its separate local server, received
-arguments previous=1200000 and current=1500000 from the live model, returned
-25.0, and produced the final answer "25% growth (denominator: $1,200,000)."
-The server rejected a zero denominator. Both notebooks retain outputs and have
+The updated MCP run discovered `revenue_growth` and `sort_numbers` on its
+separate local server. Given a revenue-growth question, the live model selected
+`revenue_growth`, supplied previous=1200000 and current=1500000, and received
+25.0. The final answer was "25% growth, based on a denominator of $1,200,000."
+The host includes an assertion that would reject the irrelevant selection, and
+the server rejected a zero denominator. Both notebooks retain outputs and have
 no error output cells. The deck was rendered and visually reviewed; the local
 GitHub Pages source includes the lecture PDF, an original loop diagram with a
 description, and separate links to both notebooks. Publishing awaits the normal

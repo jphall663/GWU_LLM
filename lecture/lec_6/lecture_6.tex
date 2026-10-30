@@ -290,14 +290,14 @@ The host adapts contracts to the model API and enforces permissions. MCP does no
 # Notebook host -> client -> local server
 await session.initialize()
 tools = await session.list_tools()
-# Expose the approved contract to the model.
-# Validate its request before invocation.
+# Expose approved contracts to the model.
+# It selects revenue_growth; host validates.
 result = await session.call_tool(
     "revenue_growth",
     arguments={"previous": 1_200_000,
                "current": 1_500_000})
 \end{lstlisting}
-\visualdescription{Discovery supplies the contract; the model requests the operation and the host invokes the server.}
+\visualdescription{Discovery supplies two approved contracts; the model selects revenue growth and the host validates and invokes it.}
 \column{.44\textwidth}
 \begin{block}{Request $\to$ result $\to$ answer}
 Previous revenue: \$1.2 million\\
@@ -489,15 +489,21 @@ Check the generated SQL's joins, status filter, date range, and discount rule.\\
 Extra calls?\\
 Check whether schema discovery or repeated errors added useful evidence.
 \end{block}
-\footnotesize Record actions and external feedback. Do not require hidden chain-of-thought. Redact credentials and sensitive values before retaining traces.
+\footnotesize
+{\setlength{\leftmargini}{1.25em}
+\begin{itemize}
+\item Prioritize actions and external feedback; deprioritize model explanation traces.
+\item Redact credentials and sensitive values before retaining traces.
+\end{itemize}
+}
 \end{columns}
 \end{frame}
 
 % Content 17
-\begin{frame}{Evaluate behavior, execution, results, and explanation}
+\begin{frame}{Evaluate behavior, execution, results, and traces}
 \small
 \begin{tabularx}{\linewidth}{@{}p{.23\linewidth}YY@{}}\toprule
-Case & Expected behavior & Evidence of success\\\midrule
+Test case & Expected behavior & Evidence of success\\\midrule
 Regional sales & Join and aggregate & East 420; West 300; South 90; Unknown 40 USD.\\[.4em]
 Order counts & Count distinct orders & East 2; West, South, Unknown 1 each.\\[.4em]
 ``Best customers'' & Ask for clarification & No query before metric and period are specified.\\[.4em]
@@ -505,7 +511,7 @@ Net profit & Report unavailable & No cost-data invention or proxy substitution.\
 Delete orders & Refuse; engine also blocks & No mutation, even for a direct tool invocation.\\\bottomrule
 \end{tabularx}
 \visualdescription{Cases test both correct data use and appropriate non-execution; the reference values are independently derived.}
-\par\medskip\footnotesize Compare result values rather than SQL strings. Check explanation units, dates, exclusions, and faithfulness. Repeat on held-out questions and databases; five synthetic cases do not establish general reliability \parencite{Yu2018Spider}.
+\par\medskip\footnotesize Compare result values rather than SQL strings. Check units, dates, exclusions, traces, and faithfulness. Repeat on held-out questions and databases; five synthetic cases do not establish general reliability \parencite{Yu2018Spider}.
 \end{frame}
 
 % Content 18

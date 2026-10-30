@@ -28,6 +28,15 @@ Run the notebook without GPU acceleration:
 uv run jupyter lab lecture/lec_1/next_word_primer.ipynb
 ```
 
+### VS Code
+
+JupyterLab is optional. After `uv sync --locked`, open the repository root in
+VS Code with Microsoft's Python and Jupyter extensions installed. Open
+`next_word_primer.ipynb`; in **Select Kernel**, choose **Select Another
+Kernel...** → **Python Environments** → `.venv/bin/python` (macOS/Linux) or
+`.venv\Scripts\python.exe` (Windows), then run the cells in order. See the
+[root VS Code setup](../../README.md#run-notebooks-in-vs-code) for details.
+
 The notebook uses CPU automatically when no compatible GPU is available.
 
 ## Optional NVIDIA GPU acceleration
@@ -50,7 +59,7 @@ The script creates only project-local links inside `.venv` and a local,
 ignored VS Code environment file. It finishes by printing TensorFlow's detected
 GPU devices. If it reports no GPU, the notebook remains usable on CPU.
 
-### VS Code
+### VS Code with GPU acceleration
 
 1. Run `./scripts/configure_tensorflow_gpu.sh` from the repository root.
 2. Reload the VS Code window after the script finishes.

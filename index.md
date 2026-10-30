@@ -97,9 +97,9 @@ grounded answers, and citations.
 Function calling, external connectivity, MCP, bounded agent loops,
 orchestration, and agent identity; Text2SQL as a worked example.
 
-![A model requests a tool, application code validates permissions and limits, and tool results return as observations before the next step.](lecture/lec_6/asset/bounded-agent-loop.svg)
+![An MCP host contains clients that connect over JSON-RPC transports to tool servers backed by local files, APIs, and remote systems.](lecture/lec_6/asset/model-context-protocol.png)
 
-<sub><sup>A bounded agent selects operations while application code controls execution, permissions, and termination. **Source:** Patrick Hall (2026), *Lecture 6: Tool Use and Agentic Workflows*; action–observation pattern informed by [Yao et al. (2023), *ReAct*](https://arxiv.org/abs/2210.03629).</sup></sub>
+<sub><sup>An MCP host uses clients to connect tool servers to local files, APIs, and remote systems. **Source:** Adapted from IBM (n.d.), [*What is Model Context Protocol?*](https://www.ibm.com/think/topics/model-context-protocol).</sup></sub>
 
 ### Lecture 6 class materials
 

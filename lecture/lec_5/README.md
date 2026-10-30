@@ -29,6 +29,15 @@ absent. Optional model overrides are `OPENAI_TEXT_MODEL` and
 uv run jupyter lab lecture/lec_5/
 ```
 
+### VS Code
+
+JupyterLab is optional. After `uv sync --locked`, open the repository root in
+VS Code with Microsoft's Python and Jupyter extensions installed. Open
+`rag_pipeline.ipynb`; in **Select Kernel**, choose **Select Another Kernel...**
+→ **Python Environments** → `.venv/bin/python` (macOS/Linux) or
+`.venv\Scripts\python.exe` (Windows), then run the cells in order. See the
+[root VS Code setup](../../README.md#run-notebooks-in-vs-code) for details.
+
 `rag_pipeline.ipynb` uses an attributed, small NIST AI RMF corpus. It treats
 each AI RMF subcategory record as one semantic chunk, compares BM25 and
 cosine-similarity retrieval, fuses their rankings, reranks six candidates with

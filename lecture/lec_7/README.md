@@ -30,6 +30,15 @@ variable is absent. Optional model overrides are `OPENAI_TEXT_MODEL`,
 uv run jupyter lab lecture/lec_7/
 ```
 
+### VS Code
+
+JupyterLab is optional. After `uv sync --locked`, open the repository root in
+VS Code with Microsoft's Python and Jupyter extensions installed. Open any
+Lecture 7 notebook; in **Select Kernel**, choose **Select Another Kernel...** →
+**Python Environments** → `.venv/bin/python` (macOS/Linux) or
+`.venv\Scripts\python.exe` (Windows), then run the cells in order. See the
+[root VS Code setup](../../README.md#run-notebooks-in-vs-code) for details.
+
 The three notebooks are:
 
 - `benchmark_embeddings.ipynb`: a transparent multiple-choice benchmark,

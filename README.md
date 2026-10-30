@@ -40,6 +40,28 @@ Install the locked project dependencies from the repository root:
 uv sync --locked
 ```
 
+## Run notebooks in VS Code
+
+JupyterLab is optional. To run the course notebooks in
+[Visual Studio Code](https://code.visualstudio.com/):
+
+1. Install Microsoft's
+   [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+   and [Jupyter extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
+2. Open the repository root as the VS Code folder and run `uv sync --locked`
+   from its integrated terminal if the environment is not already installed.
+3. Open an `.ipynb` file. In the notebook's upper-right **Select Kernel** menu,
+   choose **Select Another Kernel...**, then **Python Environments**, then the
+   project interpreter: `.venv/bin/python` on macOS/Linux or
+   `.venv\Scripts\python.exe` on Windows.
+4. Run the notebook from its first cell to its last. The notebooks load the
+   repository-root `.env` themselves when an API key is required.
+
+If the project interpreter is not listed, reload the VS Code window and select
+it by path. See the official guides to
+[Jupyter notebooks in VS Code](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
+and [kernel selection](https://code.visualstudio.com/docs/datascience/jupyter-kernel-management).
+
 Individual lectures may have additional setup notes. Lecture 1 now combines
 the next-token MLP example with transformer concepts, a plain-language summary,
 canonical references, and the Promontory AI GWU practicum guest lecture; its setup notes also cover
@@ -72,8 +94,8 @@ Lecture 6 covers tool use and agentic workflows, with bounded agent loops
 opening the orchestration and oversight section, followed by agent permissions
 and identity guidance. It includes a GW
 Beamer deck and two direct-OpenAI-API notebooks: a fixed versus bounded-agent Text2SQL comparison
-over synthetic SQLite sales data, and tool discovery/invocation through a
-separate local MCP calculator server. The shared lockfile includes the MCP v1
+over synthetic SQLite sales data, and tool discovery, selection, and invocation
+through a separate local MCP calculator server. The shared lockfile includes the MCP v1
 SDK; see [lecture 6](lecture/lec_6/README.md) for startup and execution commands.
 
 Lecture 7 covers AI test, evaluation, verification, and validation (TEVV), with
