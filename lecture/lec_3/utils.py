@@ -1,6 +1,6 @@
 """Small reusable utilities for the Lecture 3 model-API notebook.
 
-Copyright (c) Patrick Hall (jphall@gwu.edu), 2026--27.
+Copyright (c) 2026-2027 Patrick Hall (jphall@gwu.edu).
 Released under the MIT License.
 """
 

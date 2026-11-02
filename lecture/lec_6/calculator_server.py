@@ -1,4 +1,4 @@
-"""Separate local MCP calculator server. Copyright Patrick Hall, 2026-27. MIT License."""
+"""Separate local MCP calculator server. Copyright (c) 2026-2027 Patrick Hall (jphall@gwu.edu). MIT License."""
 import math
 import os
 from mcp.server.fastmcp import FastMCP

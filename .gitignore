@@ -78,6 +78,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+asset/lec_1/
 
 # LaTeX build intermediates (compiled PDFs remain versioned lecture outputs)
 *.aux

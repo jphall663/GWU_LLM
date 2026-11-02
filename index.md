@@ -28,7 +28,7 @@ Tokens, embeddings, attention, transformers, generation; reasoning models and in
 
 ![An encoder--decoder transformer stacks attention and feed-forward blocks to transform token representations into vocabulary predictions.](lecture/lec_1/asset/transformer_basics.jpg)
 
-<sub><sup>Transformer encoder and decoder stacks with attention and feed-forward blocks. **Source:** Adapted from [Vaswani et al. (2017), *Attention Is All You Need*](https://arxiv.org/abs/1706.03762).</sup></sub>
+<sub><sup>An encoder–decoder transformer stacks attention and feed-forward layers to produce token representations. Source: Lecture 1, Slide 11.</sup></sub>
 
 ### Lecture 1 class materials
 
@@ -42,7 +42,7 @@ decomposition, and iterative refinement.
 
 ![A prompt-development lifecycle moves from goal framing to design, examples or workflow stages, evaluation, and monitored release.](lecture/lec_2/asset/prompt-development-lifecycle.png)
 
-<sub><sup>Prompt development should make task framing, reusable structure, comparison, and monitored release explicit. **Source:** Adapted from [Brown et al. (2020), *Language Models Are Few-Shot Learners*](https://proceedings.neurips.cc/paper_files/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf), [Bach et al. (2022), *PromptSource*](https://github.com/bigscience-workshop/promptsource), and [Zhu et al. (2024), *PromptBench*](https://arxiv.org/abs/2312.07910).</sup></sub>
+<sub><sup>A prompt-development lifecycle moves from goal framing and design through examples, evaluation, release, monitoring, and decommissioning. Source: Lecture 2, Slide 17.</sup></sub>
 
 ### Lecture 2 class materials
 
@@ -57,7 +57,7 @@ Pydantic validation, and Jev-style typed decisions.
 
 ![Four stacked controls for a reliable model API application: bound the request, validate data, bound the decision, and test claims.](lecture/lec_3/asset/api_guidelines.png)
 
-<sub><sup>Reliable model API applications layer bounded requests, validated data, controlled decisions, and evaluation. **Source:** Course diagram, adapted from Lecture 3; API concepts follow [OpenAI (2026), *Text generation*](https://developers.openai.com/api/docs/guides/text?lang=python) and risk-management context follows [NIST (2024), *Generative AI Profile*](https://doi.org/10.6028/NIST.AI.600-1).</sup></sub>
+<sub><sup>Four API controls bound requests, validate data, constrain decisions, and test claims. Source: Lecture 3, Slide 18.</sup></sub>
 
 ### Lecture 3 class materials
 
@@ -71,7 +71,7 @@ memory, and state management.
 
 ![Conversation history, persistent memory, and task state pass through selection, validation, ordering, and budgeting before becoming context for one model call.](lecture/lec_4/asset/context-engineering-memory-state.png)
 
-<sub><sup>History, persistent memory, and application state become current-call context only when selected and budgeted. **Source:** Patrick Hall (2026), *Lecture 4: Context Engineering, Memory, and State*; memory architecture informed by [Packer et al. (2023), *MemGPT: Towards LLMs as Operating Systems*](https://arxiv.org/abs/2310.08560).</sup></sub>
+<sub><sup>Conversation history, persistent memory, and application state are selected and budgeted into context for a model call. Source: Lecture 4, Slide 6.</sup></sub>
 
 ### Lecture 4 class materials
 
@@ -85,7 +85,7 @@ grounded answers, and citations.
 
 ![A retrieval-augmented generation diagram shows a user query retrieving relevant documents, adding them to the LLM context, and producing a grounded answer.](lecture/lec_5/asset/rag_learning.jpg)
 
-<sub><sup>RAG retrieves relevant documents, adds them to the model context, and grounds the resulting answer in the selected sources. <strong>Source:</strong> Patrick Hall, <a href="https://github.com/jphall663/GWU_LLM/blob/main/misc/existing_materials/06_GAI%20Learning%20-%20RAG.jpg"><em>GAI Learning: Retrieval-Augmented Generation</em></a>.</sup></sub>
+<sub><sup>A query retrieves relevant documents that augment the model prompt and support a cited answer. Source: Lecture 5, Slide 14.</sup></sub>
 
 ### Lecture 5 class materials
 
@@ -99,7 +99,7 @@ orchestration, and agent identity; Text2SQL as a worked example.
 
 ![An MCP host contains clients that connect over JSON-RPC transports to tool servers backed by local files, APIs, and remote systems.](lecture/lec_6/asset/model-context-protocol.png)
 
-<sub><sup>An MCP host uses clients to connect tool servers to local files, APIs, and remote systems. **Source:** Adapted from IBM (n.d.), [*What is Model Context Protocol?*](https://www.ibm.com/think/topics/model-context-protocol).</sup></sub>
+<sub><sup>An MCP host connects clients to tool servers over local or remote transports. Source: Lecture 6, Slide 9, adapted from IBM (n.d.), <a href="https://www.ibm.com/think/topics/model-context-protocol"><em>What is Model Context Protocol?</em></a>; transport labels follow the MCP (2025) <a href="https://modelcontextprotocol.io/specification/2025-11-25/basic/transports"><em>Transports</em> specification</a>.</sup></sub>
 
 ### Lecture 6 class materials
 
@@ -117,7 +117,7 @@ validation of AI measurement instruments.
 
 ![A model-testing workflow combines benchmark cases with embedding-based diagnostics and human-interpretable evidence.](lecture/lec_7/asset/model-testing-benchmarks-and-embeddings.png)
 
-<sub><sup>Benchmark and embedding-based model testing should support a stated construct and decision rather than a leaderboard alone. **Source:** Sudjianto et al. (2024), [*Human-Calibrated Automated Testing and Validation of Generative Language Models*](https://arxiv.org/pdf/2411.16391).</sup></sub>
+<sub><sup>Benchmark cases and embedding diagnostics provide complementary evidence for model testing. Source: Lecture 7, Slide 7, Sudjianto et al. (2024), <a href="https://arxiv.org/pdf/2411.16391"><em>Human-Calibrated Automated Testing and Validation of Generative Language Models</em></a>.</sup></sub>
 
 ### Lecture 7 class materials
 
@@ -129,16 +129,14 @@ validation of AI measurement instruments.
 
 ## Software configuration
 
-The examples use Python 3.13 and the locked project environment. From the
-repository root, install [uv](https://docs.astral.sh/uv/getting-started/installation/)
-and run:
+The notebooks use Python 3.13 and the repository's locked `uv` environment.
+From the repository root, run `uv sync --locked` to create or update `.venv`,
+then select that project environment as the notebook kernel. Notebooks that use
+the OpenAI API load `OPENAI_API_KEY` from the ignored, repository-root `.env`
+file or prompt for it securely.
 
-```bash
-uv sync --locked
-```
-
-The [project README](README.md) covers environment setup. Lecture 1's setup
-notes include optional NVIDIA GPU acceleration.
+The [project README](README.md) covers installing `uv` and Python, selecting
+the kernel in VS Code, and lecture-specific setup instructions.
 
 ---
 

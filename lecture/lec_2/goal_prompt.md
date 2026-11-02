@@ -1,6 +1,6 @@
 # Course-grounded chat assistant
 
-Copyright (c) Patrick Hall, 2026--27. Released under the MIT License.
+Copyright (c) 2026-2027 Patrick Hall (jphall@gwu.edu). Released under the MIT License; see [SOFTWARE_LICENSE.txt](../../SOFTWARE_LICENSE.txt).
 
 ## Overall goal
 

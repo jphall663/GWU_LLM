@@ -1,6 +1,6 @@
 """Synthetic sales data and the shared SQLite execution boundary for Lecture 6.
 
-Copyright (c) Patrick Hall (jphall@gwu.edu), 2026-27. MIT License.
+Copyright (c) 2026-2027 Patrick Hall (jphall@gwu.edu). MIT License.
 Model decisions and orchestration remain visible in text_to_sql.ipynb.
 """
 from pathlib import Path
